@@ -32,3 +32,5 @@
 ### Использованные материалы
 - [Многорукие бандиты: введение и алгоритм UCB1](https://habr.com/ru/company/surfingbird/blog/168611/)
 - [Машинное обучение. Обучение с подкреплением. К.В. Воронцов](https://www.youtube.com/watch?v=iEUrX_eEWNY)
+- [Предварительно скомпилированные заголовки (stdafx.h)](https://habr.com/ru/company/pvs-studio/blog/227521/)
+- [Введение в CMake](https://neerc.ifmo.ru/wiki/index.php?title=CMake_Tutorial)
