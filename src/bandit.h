@@ -9,15 +9,16 @@ namespace multiArmedBandit {
 using ArmPtr = std::shared_ptr<IArm>;
 
 /// Multi-armed bandit interface
-/// This is automat with N arms
-class IBandit{
+class IBandit
+{
 public:
     IBandit(unsigned int armsCount);
 
     /// Return reward for chosen arm and increase iteration value;
-    double makeChoice(uint64_t armNumber);
+    double pullArmAndGetReward(size_t armNumber);
 
-    /// Print number of iterations and and actual reward chance for each arm of this iteration
+    /// Print number of iterations and and actual reward chance for each arm of
+    /// this iteration
     virtual void statePrint();
 
 protected:
@@ -26,4 +27,4 @@ protected:
     uint64_t iteration = 0;
 };
 
-}
+} // namespace multiArmedBandit
