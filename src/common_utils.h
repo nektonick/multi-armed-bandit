@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <ctime>
-#include <random>
+#include <ctime> // std::time(0)
+#include <random> // random engine
 
 // OS specific ENDL macro
 #ifndef ENDL
@@ -18,6 +18,5 @@
 namespace multiArmedBandit {
 
 static std::mt19937 randomEngine(std::time(0));
-static std::uniform_real_distribution<double> realDistr(0, 1);
 
 } // namespace multiArmedBandit

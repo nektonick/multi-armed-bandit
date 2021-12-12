@@ -1,1 +1,3 @@
-﻿#include "common_utils.h"
+﻿#include "stdafx.h"
+
+#include "common_utils.h"
