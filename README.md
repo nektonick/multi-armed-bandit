@@ -36,3 +36,4 @@
 - [Предварительно скомпилированные заголовки (stdafx.h)](https://habr.com/ru/company/pvs-studio/blog/227521/)
 - [Введение в CMake](https://neerc.ifmo.ru/wiki/index.php?title=CMake_Tutorial)
 - [Флаги компилятора (warnings)](https://habr.com/ru/post/490850/)
+- [clang-format](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)
