@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-#include "common_utils.h"
+#include "agent.h"
 
 namespace multiArmedBandit {
 

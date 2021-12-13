@@ -5,6 +5,8 @@ set(APP_HDR
     common_utils.h
     arms.h
     bandits.h
+    agent.h
+    strategies.h
     )
 source_group(h FILES ${APP_HDR})
 
@@ -13,6 +15,8 @@ set(APP_SRC
     common_utils.cpp
     arms.cpp
     bandits.cpp
+    agent.cpp
+    strategies.cpp
     main.cpp
     )
 source_group(cpp FILES ${APP_SRC})

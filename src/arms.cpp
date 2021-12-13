@@ -2,18 +2,20 @@
 
 #include "arms.h"
 
-multiArmedBandit::BernoulliArm::BernoulliArm()
+namespace multiArmedBandit {
+
+BernoulliArm::BernoulliArm()
     : IArm()
     , rewardValueMult_(1.0)
     , realDistr_(0.0, 1.0)
     , rewardChance_(realDistr_(randomEngine))
 {}
 
-multiArmedBandit::BernoulliArm::BernoulliArm(double rewardChance)
+BernoulliArm::BernoulliArm(double rewardChance)
     : rewardChance_(rewardChance)
 {}
 
-double multiArmedBandit::BernoulliArm::pull()
+double BernoulliArm::pull()
 {
     // generate random value within the realDistr interval
     double randomValue = realDistr_(randomEngine);
@@ -27,35 +29,37 @@ double multiArmedBandit::BernoulliArm::pull()
     return std::isgreaterequal(rewardChance_, randomValue) ? (1.0 * rewardValueMult_) : 0.0;
 }
 
-double multiArmedBandit::BernoulliArm::getRewardExpectation()
+double BernoulliArm::getRewardExpectation()
 {
     return rewardChance_;
 }
 
-std::string multiArmedBandit::BernoulliArm::toString()
+std::string BernoulliArm::toString()
 {
     return "BernoulliArm with reward chance=" + std::to_string(rewardChance_);
 }
 
-multiArmedBandit::NormalArm::NormalArm(double rewardMin, double rewardMax)
+NormalArm::NormalArm(double rewardMin, double rewardMax)
     : rewardMin_(rewardMin)
     , rewardMax_(rewardMax)
     , normalDistribution_(rewardMin_, rewardMax_)
 {}
 
-double multiArmedBandit::NormalArm::pull()
+double NormalArm::pull()
 {
     return normalDistribution_(randomEngine);
 }
 
-double multiArmedBandit::NormalArm::getRewardExpectation()
+double NormalArm::getRewardExpectation()
 {
     return normalDistribution_.mean();
 }
 
-std::string multiArmedBandit::NormalArm::toString()
+std::string NormalArm::toString()
 {
     std::string str = "NormalArm with min reward=" + std::to_string(rewardMin_) + ", max reward=" + std::to_string(rewardMax_) +
                       " and mean reward=" + std::to_string(rewardMin_);
     return str;
 }
+
+} // namespace multiArmedBandit
