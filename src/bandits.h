@@ -11,30 +11,33 @@ using ArmPtr = std::shared_ptr<IArm>;
 class IBandit
 {
 public:
-    IBandit();
-
     /// Return reward for chosen arm and increase iteration value;
     virtual double pullArmAndGetReward(size_t armIndex) = 0;
 
+    virtual double getPullCost() const = 0;
+
+    virtual size_t getArmsCount() const = 0;
+
     /// Print number of iterations and and actual reward chance for each arm of
     /// this iteration
-    virtual void statePrint();
+    virtual void statePrint() = 0;
 };
 
 class SimpleBandit : public IBandit
 {
 public:
-    SimpleBandit(const std::vector<ArmPtr>& arms);
+    SimpleBandit(const std::vector<ArmPtr>& arms, double pullCost_ = 0);
 
     void statePrint() override;
 
     double pullArmAndGetReward(size_t armIndex) override;
+    double getPullCost() const override;
+    virtual size_t getArmsCount() const override;
 
 protected:
     std::vector<ArmPtr> arms_;
-    size_t bestArmIndex;
-    /// Turn or iteration number
-    uint64_t iteration = 0;
+    size_t bestArmIndex_;
+    const double pullCost_;
 };
 
 } // namespace multiArmedBandit

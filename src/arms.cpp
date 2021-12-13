@@ -5,14 +5,16 @@
 namespace multiArmedBandit {
 
 BernoulliArm::BernoulliArm()
-    : IArm()
-    , rewardValueMult_(1.0)
-    , realDistr_(0.0, 1.0)
+    : rewardValueMult_(1)
+    , realDistr_(0, 1)
     , rewardChance_(realDistr_(randomEngine))
 {}
 
 BernoulliArm::BernoulliArm(double rewardChance)
-    : rewardChance_(rewardChance)
+    : rewardValueMult_(1)
+    , realDistr_(0, 1)
+    , rewardChance_(rewardChance)
+
 {}
 
 double BernoulliArm::pull()
@@ -24,7 +26,7 @@ double BernoulliArm::pull()
     // Line below is ternary operator:
     // if rewardChance >= randomValue reward will be returned; else zero will be returned
     // NOTE:
-    // std::isgreaterequal() funtion is used instead of operator>=() to avoid FE_INVALID exception, however
+    // std::isgreaterequal() function is used instead of operator>=() to avoid FE_INVALID exception, however
     // there is no way rewardChance and randomValue become NaN, so using of isgreaterequal() is not really necessary
     return std::isgreaterequal(rewardChance_, randomValue) ? (1.0 * rewardValueMult_) : 0.0;
 }
