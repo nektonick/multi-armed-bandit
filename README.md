@@ -37,3 +37,4 @@
 - [Введение в CMake](https://neerc.ifmo.ru/wiki/index.php?title=CMake_Tutorial)
 - [Флаги компилятора (warnings)](https://habr.com/ru/post/490850/)
 - [clang-format](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)
+- [Конструкторы дочерних классов](https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/)
