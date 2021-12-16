@@ -4,6 +4,15 @@
 
 namespace multiArmedBandit {
 
+IArm::IArm()
+    : randomEngine(std::time(0))
+{}
+
+void IArm::setRandomeSeed(uint64_t seed)
+{
+    randomEngine.seed(seed);
+}
+
 BernoulliArm::BernoulliArm()
     : rewardValueMult_(1)
     , realDistr_(0, 1)

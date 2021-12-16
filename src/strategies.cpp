@@ -4,6 +4,15 @@
 
 namespace multiArmedBandit {
 
+IStrategy::IStrategy()
+    : randomEngine(std::time(0))
+{}
+
+void IStrategy::setRandomSeed(uint64_t randomSeed)
+{
+    randomEngine.seed(randomSeed);
+}
+
 RandomStrategy::RandomStrategy(size_t armsCount)
     : armsCount_(armsCount)
 {}

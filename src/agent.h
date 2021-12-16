@@ -14,6 +14,7 @@ class IAgent
 {
 public:
     IAgent(StrategyPtr strategy);
+    virtual ~IAgent() = default;
 
     virtual void runSingleRound(std::shared_ptr<IBandit> bandit);
 
