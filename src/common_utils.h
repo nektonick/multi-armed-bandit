@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <ctime> // std::time(0)
 #include <random> // random engine
 
 // OS specific ENDL macro
@@ -16,7 +15,5 @@
 #define TAB "    "
 
 namespace multiArmedBandit {
-
-static std::mt19937 randomEngine(std::time(0));
 
 } // namespace multiArmedBandit

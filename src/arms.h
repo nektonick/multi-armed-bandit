@@ -8,14 +8,21 @@ namespace multiArmedBandit {
 class IArm
 {
 public:
+    /// @note Default base constructor will be called in all child classes constructors
+    IArm();
+    virtual ~IArm() = default;
+    virtual void setRandomeSeed(uint64_t seed) final;
+
     /// Pull this arm and get reward
     virtual double pull() = 0;
 
     /// Get actual arm reward characteristic (chance or mean value)
     virtual double getRewardExpectation() = 0;
 
-public:
     virtual std::string toString() = 0;
+
+protected:
+    std::mt19937 randomEngine;
 };
 
 /// Binary (win or lose) arm (a.k.a. Bernoulli arm)

@@ -1,20 +1,25 @@
 ﻿#pragma once
 
+#include "common_utils.h"
 #include <set>
 #include <string>
 #include <vector>
-
-#include <algorithm>
-#include <cmath>
 
 namespace multiArmedBandit {
 
 class IStrategy
 {
 public:
+    /// @note Default base constructor will be called in all child classes constructors
+    IStrategy();
+    virtual ~IStrategy() = default;
+    virtual void setRandomSeed(uint64_t randomSeed) final;
     virtual int selectNextArm() = 0;
     virtual void updateState(int selectedArmIndex, double reward) = 0;
     virtual std::string toString() = 0;
+
+protected:
+    std::mt19937 randomEngine;
 };
 
 class RandomStrategy : public IStrategy
