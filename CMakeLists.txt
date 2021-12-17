@@ -9,6 +9,12 @@ set(CMAKE_CXX_STANDARD 17)
 # -Wall -Wextra -Wpedantic -- enable warnings
 # -Werror - warnings are fatal
 # -O2 -- recommended optimization level
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -Wall -Wextra -Wpedantic -Werror -O2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -Wall -O2")
+
+# Set default compile flags for GCC
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message(STATUS "GCC detected, adding additional compile flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wpedantic -Werror")
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 add_subdirectory(src)
