@@ -1,14 +1,13 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 
-#include <iomanip>
 #include "agent.h"
 
 using namespace multiArmedBandit;
 
 int main()
 {
-    const size_t armsCount = 10;
-    const size_t iterationsCount = 300;
+    const size_t armsCount = 300;
+    const size_t iterationsCount = 5000;
 
     std::vector<ArmPtr> arms;
     for(size_t i = 0; i < armsCount; ++i)
@@ -21,15 +20,27 @@ int main()
     AdvancedAgent agentRandom(std::make_shared<RandomStrategy>(bandit->getArmsCount()));
     AdvancedAgent agentDMED(std::make_shared<DMEDBinaryStrategy>(bandit->getArmsCount()));
 
-    std::cout << "Start of test" ENDL;
+    std::cout << "The initial agents state:" ENDL;
+    std::cout << agentRandom.printInfo() << ENDL;
+    std::cout << agentDMED.printInfo() << ENDL;
+    std::cout << ENDL "Start of test" ENDL;
+
+    std::cout << '[';
     for(size_t iteration = 0; iteration < iterationsCount; ++iteration)
     {
-        std::cout << "Round#" << iteration << ENDL;
         agentRandom.runSingleRound(bandit);
-        std::cout << agentRandom.printInfo() << ENDL;
         agentDMED.runSingleRound(bandit);
-        std::cout << agentDMED.printInfo()<< ENDL;
+        if(iteration % (iterationsCount / 100) == 0)
+        {
+            std::cout << '=';
+            // we force to output the buffer
+            std::flush(std::cout);
+        }
     }
-    std::cout << "End of test" ENDL;
+    std::cout << ']';
+    std::cout << ENDL "End of test" ENDL;
+    std::cout << ENDL "The final agents state:" ENDL;
+    std::cout << agentRandom.printInfo() << ENDL;
+    std::cout << agentDMED.printInfo() << ENDL;
     return 0;
 }

@@ -4,6 +4,8 @@
 
 namespace multiArmedBandit {
 
+IBandit::IBandit() {}
+
 SimpleBandit::SimpleBandit(const std::vector<ArmPtr>& arms, double pullCost)
     : arms_(arms)
     , pullCost_(pullCost)
