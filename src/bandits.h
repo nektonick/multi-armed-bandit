@@ -11,6 +11,7 @@ using ArmPtr = std::shared_ptr<IArm>;
 class IBandit
 {
 public:
+    IBandit();
     virtual ~IBandit() = default;
     /// Return reward for chosen arm and increase iteration value;
     virtual double pullArmAndGetReward(size_t armIndex) = 0;

@@ -5,8 +5,11 @@
 namespace multiArmedBandit {
 
 IStrategy::IStrategy()
-    : randomEngine(std::time(0))
-{}
+{
+    std::random_device trueRandomGenerator;
+    uint32_t seed = trueRandomGenerator();
+    randomEngine.seed(seed);
+}
 
 void IStrategy::setRandomSeed(uint64_t randomSeed)
 {
@@ -59,6 +62,10 @@ int DMEDBinaryStrategy::selectNextArm()
         }
     }
 
+    if(armsToPull_.empty())
+    {
+        return 0;
+    }
     return (*armsToPull_.begin());
 }
 

@@ -5,8 +5,11 @@
 namespace multiArmedBandit {
 
 IArm::IArm()
-    : randomEngine(std::time(0))
-{}
+{
+    std::random_device realyRandomGenerator;
+    uint32_t seed = realyRandomGenerator();
+    randomEngine.seed(seed);
+}
 
 void IArm::setRandomeSeed(uint64_t seed)
 {
