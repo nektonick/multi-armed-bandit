@@ -11,7 +11,7 @@ public:
     /// @note Default base constructor will be called in all child classes constructors
     IArm();
     virtual ~IArm() = default;
-    virtual void setRandomeSeed(uint64_t seed) final;
+    virtual void setRandomeSeed(uint8_t seed) final;
 
     /// Pull this arm and get reward
     virtual double pull() = 0;
@@ -29,8 +29,8 @@ protected:
 class BernoulliArm : public IArm
 {
 public:
-    BernoulliArm();
-    BernoulliArm(double rewardChance);
+    BernoulliArm(double rewardMultiplier = 1);
+    BernoulliArm(double rewardChance, double rewardMultiplier);
 
     double pull() override;
     double getRewardExpectation() override;

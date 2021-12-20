@@ -4,8 +4,9 @@
 
 namespace multiArmedBandit {
 
-IAgent::IAgent(StrategyPtr strategy)
+IAgent::IAgent(StrategyPtr strategy, double startCache)
     : strategy_(std::move(strategy))
+    , cache_(startCache)
 {}
 
 void IAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
@@ -15,9 +16,13 @@ void IAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
     strategy_->updateState(armToPush, reward);
 }
 
+double IAgent::getCache() const
+{
+    return cache_;
+}
+
 AdvancedAgent::AdvancedAgent(StrategyPtr strategie, double startCache)
-    : IAgent(std::move(strategie))
-    , cache_(startCache)
+    : IAgent(std::move(strategie), startCache)
 {}
 
 void AdvancedAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
@@ -29,11 +34,16 @@ void AdvancedAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
     strategy_->updateState(armToPush, reward);
 }
 
-std::string AdvancedAgent::printInfo() const
+std::string AdvancedAgent::printStrategyName() const
 {
     std::stringstream ss;
-    ss << "Agent with strategy " << strategy_->toString() << " with cache = " << std::fixed << cache_;
+    ss << strategy_->getName();
     return ss.str();
+}
+
+std::vector<double> AdvancedAgent::getArmsExpectation() const
+{
+    return strategy_->getArmsExpectation();
 }
 
 } // namespace multiArmedBandit
