@@ -7,7 +7,7 @@ set(APP_HDR
     bandits.h
     agent.h
     strategies.h
-    )
+    logger.h)
 source_group(h FILES ${APP_HDR})
 
 set(APP_SRC
@@ -17,8 +17,10 @@ set(APP_SRC
     bandits.cpp
     agent.cpp
     strategies.cpp
-    main.cpp
-    )
+    logger.cpp
+    main.cpp)
 source_group(cpp FILES ${APP_SRC})
 
 add_executable(${APP} ${APP_SRC} ${APP_HDR})
+
+set_property(TARGET ${APP} PROPERTY CXX_STANDARD 17)

@@ -11,19 +11,19 @@ IArm::IArm()
     randomEngine.seed(seed);
 }
 
-void IArm::setRandomeSeed(uint64_t seed)
+void IArm::setRandomeSeed(uint8_t seed)
 {
     randomEngine.seed(seed);
 }
 
-BernoulliArm::BernoulliArm()
-    : rewardValueMult_(1)
+BernoulliArm::BernoulliArm(double rewardMultiplier)
+    : rewardValueMult_(rewardMultiplier)
     , realDistr_(0, 1)
     , rewardChance_(realDistr_(randomEngine))
 {}
 
-BernoulliArm::BernoulliArm(double rewardChance)
-    : rewardValueMult_(1)
+BernoulliArm::BernoulliArm(double rewardChance, double rewardMultiplier)
+    : rewardValueMult_(rewardMultiplier)
     , realDistr_(0, 1)
     , rewardChance_(rewardChance)
 
