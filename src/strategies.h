@@ -10,17 +10,12 @@ namespace multiArmedBandit {
 class IStrategy
 {
 public:
-    /// @note Default base constructor will be called in all child classes constructors
-    IStrategy();
+    IStrategy() = default;
     virtual ~IStrategy() = default;
-    virtual void setRandomSeed(uint8_t randomSeed) final;
     virtual size_t selectNextArm() = 0;
     virtual void updateState(size_t selectedArmIndex, double reward) = 0;
     virtual std::string getName() = 0;
     virtual std::vector<double> getArmsExpectation() = 0;
-
-protected:
-    std::mt19937 randomEngine;
 };
 
 class RandomStrategy : public IStrategy
@@ -31,8 +26,10 @@ public:
     void updateState(size_t selectedArmIndex, double reward) override;
     std::string getName() override;
     std::vector<double> getArmsExpectation() override;
+    void setRandomSeed(uint8_t randomSeed);
 
 protected:
+    std::mt19937 randomEngine;
     const size_t armsCount_;
 };
 

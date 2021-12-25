@@ -38,4 +38,6 @@
 - [Флаги компилятора (warnings)](https://habr.com/ru/post/490850/)
 - [clang-format](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)
 - [Конструкторы дочерних классов](https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/)
-- [vcpkg - менеджер библиотек C++](https://vcpkg.io/en/getting-started.html)
+
+### Ход выполнения работы
+- [Процесс выполнения описан в отдельном файле](progressDescription.md)

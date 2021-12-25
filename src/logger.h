@@ -18,7 +18,6 @@ public:
     virtual std::string printAll();
     virtual std::string printCacheStats();
 
-
 protected:
     // Struct for internal use
     struct AgentStatsPerIteration

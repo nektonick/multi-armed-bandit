@@ -14,7 +14,6 @@ int main()
     const double pullCost = 0.5;
     const double rewardMultiplier = 1;
 
-
     Logger logger;
     enum class LogOptions
     {
@@ -33,9 +32,9 @@ int main()
 
     std::shared_ptr<SimpleBandit> bandit = std::make_shared<SimpleBandit>(arms, pullCost);
 
-    std::vector<std::shared_ptr<AdvancedAgent>> agents = {std::make_shared<AdvancedAgent>(std::make_shared<RandomStrategy>(bandit->getArmsCount())),
-                                                          std::make_shared<AdvancedAgent>(std::make_shared<DMED_BinaryStrategy>(bandit->getArmsCount())),
-                                                          std::make_shared<AdvancedAgent>(std::make_shared<KL_UCBStrategy>(bandit->getArmsCount()))};
+    std::vector<std::shared_ptr<SimpleAgent>> agents = {std::make_shared<SimpleAgent>(std::make_shared<RandomStrategy>(bandit->getArmsCount())),
+                                                        std::make_shared<SimpleAgent>(std::make_shared<DMED_BinaryStrategy>(bandit->getArmsCount())),
+                                                        std::make_shared<SimpleAgent>(std::make_shared<KL_UCBStrategy>(bandit->getArmsCount()))};
 
     logger.logActualArmsStats(arms);
 

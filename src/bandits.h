@@ -22,7 +22,7 @@ public:
 
     /// Print number of iterations and and actual reward chance for each arm of
     /// this iteration
-    virtual void statePrint() = 0;
+    virtual std::string statePrint() = 0;
 };
 
 class SimpleBandit : public IBandit
@@ -30,7 +30,7 @@ class SimpleBandit : public IBandit
 public:
     SimpleBandit(const std::vector<ArmPtr>& arms, double pullCost_ = 0);
 
-    void statePrint() override;
+    std::string statePrint() override;
 
     double pullArmAndGetReward(size_t armIndex) override;
     double getPullCost() const override;

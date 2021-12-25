@@ -17,7 +17,7 @@ void Logger::logActualAgentState(std::shared_ptr<IAgent> agent)
 {
     AgentStatsPerIteration agentStats;
     agentStats.name = agent->printStrategyName();
-    agentStats.cache = agent->getCache();
+    agentStats.cache = agent->getCash();
     agentStats.armsCoeffs = agent->getArmsExpectation();
 
     agentStatsPerIteration[iteration].push_back(std::move(agentStats));
