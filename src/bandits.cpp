@@ -19,12 +19,14 @@ SimpleBandit::SimpleBandit(const std::vector<ArmPtr>& arms, double pullCost)
     ;
 }
 
-void SimpleBandit::statePrint()
+std::string SimpleBandit::statePrint()
 {
+    std::string out;
     for(size_t i = 0; i < arms_.size(); ++i)
     {
-        std::cout << arms_[i]->toString() << ENDL;
+        out += arms_[i]->toString() + ENDL;
     }
+    return out;
 }
 
 double SimpleBandit::pullArmAndGetReward(size_t armIndex)

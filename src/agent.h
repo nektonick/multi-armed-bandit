@@ -13,23 +13,23 @@ using StrategyPtr = std::shared_ptr<IStrategy>;
 class IAgent
 {
 public:
-    IAgent(StrategyPtr strategy, double startCache);
+    IAgent(StrategyPtr strategy, double startCash);
     virtual ~IAgent() = default;
 
     virtual void runSingleRound(std::shared_ptr<IBandit> bandit);
     virtual std::string printStrategyName() const = 0;
-    virtual double getCache() const;
+    virtual double getCash() const;
     virtual std::vector<double> getArmsExpectation() const = 0;
 
 protected:
     StrategyPtr strategy_;
-    double cache_;
+    double cash_;
 };
 
-class AdvancedAgent : public IAgent
+class SimpleAgent : public IAgent
 {
 public:
-    AdvancedAgent(StrategyPtr strategie, double startCache = 100);
+    SimpleAgent(StrategyPtr strategie, double startCache = 100);
 
     void runSingleRound(std::shared_ptr<IBandit> bandit) override;
 

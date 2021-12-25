@@ -5,21 +5,18 @@
 
 namespace multiArmedBandit {
 
-IStrategy::IStrategy()
+RandomStrategy::RandomStrategy(size_t armsCount)
+    : armsCount_(armsCount)
 {
     std::random_device trueRandomGenerator;
     uint32_t seed = trueRandomGenerator();
     randomEngine.seed(seed);
 }
 
-void IStrategy::setRandomSeed(uint8_t randomSeed)
+void RandomStrategy::setRandomSeed(uint8_t randomSeed)
 {
     randomEngine.seed(randomSeed);
 }
-
-RandomStrategy::RandomStrategy(size_t armsCount)
-    : armsCount_(armsCount)
-{}
 
 size_t RandomStrategy::selectNextArm()
 {

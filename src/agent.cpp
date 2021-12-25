@@ -4,9 +4,9 @@
 
 namespace multiArmedBandit {
 
-IAgent::IAgent(StrategyPtr strategy, double startCache)
+IAgent::IAgent(StrategyPtr strategy, double startCash)
     : strategy_(std::move(strategy))
-    , cache_(startCache)
+    , cash_(startCash)
 {}
 
 void IAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
@@ -16,32 +16,32 @@ void IAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
     strategy_->updateState(armToPush, reward);
 }
 
-double IAgent::getCache() const
+double IAgent::getCash() const
 {
-    return cache_;
+    return cash_;
 }
 
-AdvancedAgent::AdvancedAgent(StrategyPtr strategie, double startCache)
+SimpleAgent::SimpleAgent(StrategyPtr strategie, double startCache)
     : IAgent(std::move(strategie), startCache)
 {}
 
-void AdvancedAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
+void SimpleAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
 {
     size_t armToPush = strategy_->selectNextArm();
-    cache_ -= bandit->getPullCost();
+    cash_ -= bandit->getPullCost();
     double reward = bandit->pullArmAndGetReward(armToPush);
-    cache_ += reward;
+    cash_ += reward;
     strategy_->updateState(armToPush, reward);
 }
 
-std::string AdvancedAgent::printStrategyName() const
+std::string SimpleAgent::printStrategyName() const
 {
     std::stringstream ss;
     ss << strategy_->getName();
     return ss.str();
 }
 
-std::vector<double> AdvancedAgent::getArmsExpectation() const
+std::vector<double> SimpleAgent::getArmsExpectation() const
 {
     return strategy_->getArmsExpectation();
 }
