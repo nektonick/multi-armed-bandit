@@ -4,7 +4,7 @@
 #include "agent.h"
 #include "arms.h"
 #include "bandits.h"
-#include <map>
+
 
 namespace multiArmedBandit {
 
