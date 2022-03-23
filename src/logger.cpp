@@ -1,13 +1,14 @@
-﻿#include "Logger.h"
+﻿#include "logger.h"
 
 namespace multiArmedBandit {
-Logger::Logger() {}
+Logger::Logger()
+{
+}
 
 void Logger::logActualArmsStats(const std::vector<ArmPtr>& arms)
 {
     actualArmsStats.reserve(arms.size());
-    for(const auto& arm : arms)
-    {
+    for(const auto& arm : arms) {
         actualArmsStats.push_back(arm->getRewardExpectation());
     }
     agentStatsPerIteration.push_back(agentsVector{});
@@ -29,8 +30,7 @@ std::string Logger::printAll()
     out << "Actual arms reward chance: " ENDL;
     {
         size_t armIndex = 0;
-        for(const auto armChance : actualArmsStats)
-        {
+        for(const auto armChance : actualArmsStats) {
             out << "Arm#" << armIndex << ": " << armChance << ENDL;
             ++armIndex;
         }
@@ -41,17 +41,14 @@ std::string Logger::printAll()
     out << "Agents stats per iterations: " ENDL;
     size_t iterationNum = 0;
 
-    for(const auto& iteration : agentStatsPerIteration)
-    {
+    for(const auto& iteration : agentStatsPerIteration) {
         out << "Iteration#" << iterationNum << ":" ENDL;
-        for(const auto& agent : iteration)
-        {
+        for(const auto& agent : iteration) {
             out << TAB << "Agent: " << agent.name << ENDL;
             out << TAB << "Cache: " << agent.cache << ENDL;
             out << TAB << "Expectations: " ENDL;
             size_t armIndex = 0;
-            for(const auto coeff : agent.armsCoeffs)
-            {
+            for(const auto coeff : agent.armsCoeffs) {
                 out << TAB << TAB << "Arm#" << armIndex << ": " << coeff << ENDL;
                 ++armIndex;
             }
@@ -70,8 +67,7 @@ std::string Logger::printCacheStats()
     out << "Actual arms reward chance: " ENDL;
     {
         size_t armIndex = 0;
-        for(const auto armChance : actualArmsStats)
-        {
+        for(const auto armChance : actualArmsStats) {
             out << "Arm#" << armIndex << ": " << armChance << ENDL;
             ++armIndex;
         }
@@ -82,11 +78,9 @@ std::string Logger::printCacheStats()
     out << "Cache stats per iterations: " ENDL;
     size_t iterationNum = 0;
 
-    for(const auto& iteration : agentStatsPerIteration)
-    {
+    for(const auto& iteration : agentStatsPerIteration) {
         out << "Iteration#" << iterationNum << ":" ENDL;
-        for(const auto& agent : iteration)
-        {
+        for(const auto& agent : iteration) {
             out << TAB << agent.name << ": " << agent.cache << "$" ENDL;
         }
         out << std::string(30, '_') << ENDL;

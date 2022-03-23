@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "common_utils.h"
 #include <set>
 #include <string>
 #include <vector>
+#include "common_utils.h"
 
 namespace multiArmedBandit {
 

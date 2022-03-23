@@ -24,8 +24,7 @@ int main()
     LogOptions logOptinos = LogOptions::cacheOnly;
 
     std::vector<ArmPtr> arms;
-    for(size_t i = 0; i < armsCount; ++i)
-    {
+    for(size_t i = 0; i < armsCount; ++i) {
         auto arm = std::make_shared<BernoulliArm>(rewardMultiplier);
         arms.push_back(arm);
     }
@@ -41,25 +40,19 @@ int main()
     std::cout << "Start of test" ENDL;
     std::cout << '[';
     std::flush(std::cout);
-    for(size_t iteration = 0; iteration < iterationsCount; ++iteration)
-    {
-        for(auto& agent : agents)
-        {
+    for(size_t iteration = 0; iteration < iterationsCount; ++iteration) {
+        for(auto& agent : agents) {
             agent->runSingleRound(bandit);
             logger.logActualAgentState(agent);
         }
         logger.increaceIteration();
 
         // loading bar printing
-        if(iterationsCount >= 100)
-        {
-            if(iteration % (iterationsCount / 100) == 0)
-            {
+        if(iterationsCount >= 100) {
+            if(iteration % (iterationsCount / 100) == 0) {
                 std::cout << '=';
             }
-        }
-        else
-        {
+        } else {
             /// string of (100 / iterationsCount) symbols
             std::string loadingStringPart(100 / iterationsCount, '=');
             std::cout << loadingStringPart;
@@ -70,8 +63,7 @@ int main()
     std::cout << ']';
     std::cout << ENDL "End of test" ENDL;
 
-    switch(logOptinos)
-    {
+    switch(logOptinos) {
     case LogOptions::cacheOnly:
         std::cout << ENDL << logger.printCacheStats();
         break;

@@ -41,3 +41,9 @@
 
 ### Ход выполнения работы
 - [Процесс выполнения описан в отдельном файле](progressDescription.md)
+
+# Clang-format
+To aply .clang-format to all C++ files use your IDE tools or the following command on linux:
+```bash
+find ./src -iname *.h -o -iname *.cpp | xargs clang-format -i
+```

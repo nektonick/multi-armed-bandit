@@ -7,7 +7,8 @@ namespace multiArmedBandit {
 IAgent::IAgent(StrategyPtr strategy, double startCash)
     : strategy_(std::move(strategy))
     , cash_(startCash)
-{}
+{
+}
 
 void IAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
 {
@@ -23,7 +24,8 @@ double IAgent::getCash() const
 
 SimpleAgent::SimpleAgent(StrategyPtr strategie, double startCache)
     : IAgent(std::move(strategie), startCache)
-{}
+{
+}
 
 void SimpleAgent::runSingleRound(std::shared_ptr<IBandit> bandit)
 {
