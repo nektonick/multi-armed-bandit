@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "arms.h"
 #include <memory> // shared_ptr
+#include "arms.h"
 
 namespace multiArmedBandit {
 

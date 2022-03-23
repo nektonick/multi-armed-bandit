@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 
-#include "strategies.h"
 #include <numeric> // std::accumulate
+#include "strategies.h"
 
 namespace multiArmedBandit {
 
@@ -47,8 +47,7 @@ DMED_BinaryStrategy::DMED_BinaryStrategy(size_t armsCount)
 {
     armPullsCount.reserve(armsCount);
     armTotalReward.reserve(armsCount);
-    for(size_t i = 0; i < armsCount; ++i)
-    {
+    for(size_t i = 0; i < armsCount; ++i) {
         armPullsCount.push_back(0);
         armTotalReward.push_back(0);
         armsToPull_.insert(i);
@@ -59,17 +58,14 @@ DMED_BinaryStrategy::DMED_BinaryStrategy(size_t armsCount)
 
 size_t DMED_BinaryStrategy::selectNextArm()
 {
-    for(size_t i = 0; i < armsCount_; ++i)
-    {
+    for(size_t i = 0; i < armsCount_; ++i) {
         // Firstly pull all arms at least once
-        if(armPullsCount[i] == 0)
-        {
+        if(armPullsCount[i] == 0) {
             return i;
         }
     }
 
-    if(armsToPull_.empty())
-    {
+    if(armsToPull_.empty()) {
         return 0;
     }
     return (*armsToPull_.begin());
@@ -83,37 +79,30 @@ void DMED_BinaryStrategy::updateState(size_t selectedArmIndex, double reward)
 
     armsToPull_.erase(selectedArmIndex);
 
-    if(iterationNumber_ <= armsCount_)
-    {
+    if(iterationNumber_ <= armsCount_) {
         //initial exploration, so skip other logic and return
         return;
     }
 
     std::vector<double> mus(armsCount_, 0.0);
-    for(size_t i = 0; i < armsCount_; ++i)
-    {
+    for(size_t i = 0; i < armsCount_; ++i) {
         mus[i] = std::max(std::min(armTotalReward[i] / armPullsCount[i], 1.0 - epsilonValue_), epsilonValue_);
     }
 
     LRc.insert(selectedArmIndex);
     const double mu_opt = *(std::max_element(mus.begin(), mus.end()));
-    for(const auto& j : LRc)
-    {
+    for(const auto& j : LRc) {
         const double dj = dualDivergence(mus[j], mu_opt);
-        if(armPullsCount[j] * dj <= std::log((double)iterationNumber_ / armPullsCount[j]))
-        {
+        if(armPullsCount[j] * dj <= std::log((double)iterationNumber_ / armPullsCount[j])) {
             LN.insert(j);
         }
     }
 
-    if(armsToPull_.empty())
-    {
+    if(armsToPull_.empty()) {
         armsToPull_ = LN;
         LRc.clear();
-        for(size_t i = 0; i < armsCount_; ++i)
-        {
-            if(armsToPull_.find(i) == armsToPull_.end())
-            {
+        for(size_t i = 0; i < armsCount_; ++i) {
+            if(armsToPull_.find(i) == armsToPull_.end()) {
                 LRc.insert(i);
             }
         }
@@ -131,8 +120,7 @@ std::vector<double> DMED_BinaryStrategy::getArmsExpectation()
 {
     std::vector<double> ans;
     ans.reserve(armsCount_);
-    for(size_t i = 0; i < armsCount_; ++i)
-    {
+    for(size_t i = 0; i < armsCount_; ++i) {
         ans.push_back(std::max(std::min(armTotalReward[i] / armPullsCount[i], 1.0 - epsilonValue_), epsilonValue_));
     }
     return ans;
@@ -157,10 +145,8 @@ size_t KL_UCBStrategy::selectNextArm()
     std::vector<double> indices = std::vector<double>(armsCount_, 0.0);
     const int n = std::accumulate(Ni_.begin(), Ni_.end(), 0);
 
-    for(size_t currentArmIndex = 0; currentArmIndex < armsCount_; ++currentArmIndex)
-    {
-        if(Ni_[currentArmIndex] == 0)
-        {
+    for(size_t currentArmIndex = 0; currentArmIndex < armsCount_; ++currentArmIndex) {
+        if(Ni_[currentArmIndex] == 0) {
             return currentArmIndex;
         }
         indices[currentArmIndex] = getKLUCBUpper(currentArmIndex, n);
@@ -187,14 +173,10 @@ std::vector<double> KL_UCBStrategy::getArmsExpectation()
     const int n = std::accumulate(Ni_.begin(), Ni_.end(), 0);
 
     ans.reserve(armsCount_);
-    for(size_t currentArmIndex = 0; currentArmIndex < armsCount_; ++currentArmIndex)
-    {
-        if(Ni_[currentArmIndex] == 0)
-        {
+    for(size_t currentArmIndex = 0; currentArmIndex < armsCount_; ++currentArmIndex) {
+        if(Ni_[currentArmIndex] == 0) {
             ans.push_back(1);
-        }
-        else
-        {
+        } else {
             ans.push_back(getKLUCBUpper(currentArmIndex, n));
         }
     }
@@ -205,25 +187,21 @@ double KL_UCBStrategy::getKLUCBUpper(size_t armIndex, int n)
 {
     const double logNdn = log(n) / static_cast<double>(Ni_[armIndex]);
     const double p = std::max(Gi_[armIndex] / static_cast<double>(Ni_[armIndex]), delta_);
-    if(p >= 1)
-    {
+    if(p >= 1) {
         return 1;
     }
     bool converged = false;
     double q = p + delta_;
-    for(int t = 0; (t < 20 && !converged); ++t)
-    {
+    for(int t = 0; (t < 20 && !converged); ++t) {
         const double f = logNdn - calculate_kl_divergence(p, q);
         const double df = -dkl(p, q);
-        if(f * f < epsilon_)
-        {
+        if(f * f < epsilon_) {
             converged = true;
             break;
         }
         q = std::min(1 - delta_, std::max(q - f / df, p + delta_));
     }
-    if(!converged)
-    {
+    if(!converged) {
         // TODO: log in trace/debug
         // std::cerr << "Newton iteration in KL-UCB algorithm did not converge";
     }

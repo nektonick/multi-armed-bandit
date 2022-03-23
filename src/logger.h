@@ -1,5 +1,6 @@
-﻿#pragma once
+#pragma once
 
+#include <map>
 #include "agent.h"
 #include "arms.h"
 #include "bandits.h"

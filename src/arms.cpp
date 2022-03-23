@@ -20,14 +20,16 @@ BernoulliArm::BernoulliArm(double rewardMultiplier)
     : rewardValueMult_(rewardMultiplier)
     , realDistr_(0, 1)
     , rewardChance_(realDistr_(randomEngine))
-{}
+{
+}
 
 BernoulliArm::BernoulliArm(double rewardChance, double rewardMultiplier)
     : rewardValueMult_(rewardMultiplier)
     , realDistr_(0, 1)
     , rewardChance_(rewardChance)
 
-{}
+{
+}
 
 double BernoulliArm::pull()
 {
@@ -57,7 +59,8 @@ NormalArm::NormalArm(double rewardMin, double rewardMax)
     : rewardMin_(rewardMin)
     , rewardMax_(rewardMax)
     , normalDistribution_(rewardMin_, rewardMax_)
-{}
+{
+}
 
 double NormalArm::pull()
 {
@@ -71,8 +74,7 @@ double NormalArm::getRewardExpectation()
 
 std::string NormalArm::toString()
 {
-    std::string str = "NormalArm with min reward=" + std::to_string(rewardMin_) + ", max reward=" + std::to_string(rewardMax_) +
-                      " and mean reward=" + std::to_string(rewardMin_);
+    std::string str = "NormalArm with min reward=" + std::to_string(rewardMin_) + ", max reward=" + std::to_string(rewardMax_) + " and mean reward=" + std::to_string(rewardMin_);
     return str;
 }
 

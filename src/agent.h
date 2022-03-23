@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "bandits.h"
-#include "strategies.h"
 #include <memory> // shared_ptr
 #include <sstream>
 #include <vector>
+#include "bandits.h"
+#include "strategies.h"
 
 namespace multiArmedBandit {
 
